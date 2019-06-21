@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::resource('/actors', 'ActorController');
 Route::resource('/movies', 'MovieController');
-
+Route::resource('/agents', 'AgentController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

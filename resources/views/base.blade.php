@@ -24,6 +24,7 @@
             <div class="links">
                     <a href="/actors">Actors</a>
                     <a href="/movies">Movies</a>
+                    <a href="/agents">Agents</a>
                 </div>
             
             @yield('main')

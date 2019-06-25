@@ -117,6 +117,6 @@ class AgentController extends Controller
     public function destroy($id)
     {
         Agent::where('id', $id)->delete();
-        return redirect()->route('agents.index')->with('success', 'Stock has been deleted Successfully');
+        return redirect()->route('agents.index')->with('success', 'it has been deleted Successfully');
     }
 }

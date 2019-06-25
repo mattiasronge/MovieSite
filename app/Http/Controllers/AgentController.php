@@ -27,7 +27,9 @@ class AgentController extends Controller
      */
     public function create()
     {
-        //
+        
+        //go to the create.blade.php
+        return view('agent.create');
     }
 
     /**
@@ -38,7 +40,20 @@ class AgentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $request->validate([
+        'name'=>'required',
+        'birthday'=> 'required|date',
+        'country' => 'required|string'
+      ]);
+
+      $agent = new Agent;
+
+      $agent->name = $request->get('name');
+      $agent->birthday = $request->get('birthday');
+      $agent->country = $request->get('country');
+      $agent->save();
+
+      return redirect()->route('agents.index')->with('success', 'it has been added');
     }
 
     /**
@@ -57,34 +72,51 @@ class AgentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Agent  $agent
+     * @param  \App\Agent  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Agent $agent)
+    public function edit($id)
     {
-        //
+        $agent = Agent::find($id);
+
+        return view('agent.edit', compact('agent'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Agent  $agent
+     * @param  \App\Agent  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Agent $agent)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'birthday'=> 'required|date',
+            'country' => 'required|string'
+          ]);
+    
+          $agent = Agent::find($id);
+    
+          $agent->name = $request->get('name');
+          $agent->birthday = $request->get('birthday');
+          $agent->country = $request->get('country');
+          $agent->save();
+
+  
+          return redirect()->route('agents.index')->with('success', 'it has been updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Agent  $agent
+     * @param  \App\Agent  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Actor $agent)
+    public function destroy($id)
     {
-        //
+        Agent::where('id', $id)->delete();
+        return redirect()->route('agents.index')->with('success', 'Stock has been deleted Successfully');
     }
 }
